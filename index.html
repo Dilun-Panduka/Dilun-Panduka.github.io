@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dilun Panduka — Backend & DevOps Engineer</title>
+<meta name="description" content="Dilun Panduka — Associate Tech Lead, Backend & DevOps Engineer. Fintech microservices, Kubernetes, Azure, VMware Tanzu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0A0F1C;
+    --surface:#121B2E;
+    --surface-2:#17223A;
+    --line:#223050;
+    --text:#E7ECF5;
+    --muted:#8B96AC;
+    --signal:#3ECF8E;
+    --signal-dim:rgba(62,207,142,0.12);
+    --gold:#E8B34A;
+    --gold-dim:rgba(232,179,74,0.12);
+    --mono:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans:'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --maxw:1100px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:var(--mono); margin:0; font-weight:600; letter-spacing:-0.01em;}
+  p{margin:0;}
+  a{color:inherit;}
+  ul{margin:0; padding:0; list-style:none;}
+  img{max-width:100%; display:block;}
+
+  .skip-link{
+    position:absolute; left:-999px; top:0;
+    background:var(--signal); color:var(--ink);
+    padding:10px 16px; font-family:var(--mono); font-size:0.85rem;
+    z-index:1000; border-radius:0 0 6px 0;
+  }
+  .skip-link:focus{left:0;}
+
+  :focus-visible{
+    outline:2px solid var(--signal);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .container{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:100;
+    background:rgba(10,15,28,0.85);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{
+    max-width:var(--maxw); margin:0 auto; padding:16px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{
+    font-family:var(--mono); font-weight:700; font-size:1rem;
+    display:flex; align-items:center; gap:10px; text-decoration:none;
+  }
+  .brand-mark{
+    width:28px; height:28px; border:1px solid var(--signal); border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.75rem; color:var(--signal);
+  }
+  .nav-links{
+    display:flex; gap:28px; font-family:var(--mono); font-size:0.85rem; color:var(--muted);
+  }
+  .nav-links a{
+    text-decoration:none; color:var(--muted); transition:color 0.15s ease;
+    padding:4px 2px; border-bottom:1px solid transparent;
+  }
+  .nav-links a:hover{color:var(--text); border-bottom-color:var(--line);}
+
+  .nav-status{
+    display:flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:0.78rem; color:var(--signal);
+    border:1px solid var(--line); border-radius:20px; padding:6px 12px;
+    white-space:nowrap;
+  }
+  .dot{
+    width:7px; height:7px; border-radius:50%; background:var(--signal);
+    box-shadow:0 0 0 0 rgba(62,207,142,0.6);
+    animation:pulse 2.2s infinite;
+    flex-shrink:0;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(62,207,142,0.45);}
+    70%{box-shadow:0 0 0 8px rgba(62,207,142,0);}
+    100%{box-shadow:0 0 0 0 rgba(62,207,142,0);}
+  }
+
+  .nav-toggle{display:none; background:none; border:1px solid var(--line); border-radius:6px; width:40px; height:40px; color:var(--text); font-family:var(--mono); cursor:pointer;}
+  .mobile-menu{display:none;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:96px 0 72px;
+    background-image:radial-gradient(rgba(139,150,172,0.10) 1px, transparent 1px);
+    background-size:24px 24px;
+    background-position:-12px -12px;
+  }
+  .hero-inner{opacity:0; transform:translateY(14px); animation:rise 0.7s ease forwards;}
+  .hero-inner > *{opacity:0; animation:rise 0.6s ease forwards;}
+  .hero-inner .eyebrow{animation-delay:0.05s;}
+  .hero-inner h1{animation-delay:0.15s;}
+  .hero-inner .role{animation-delay:0.25s;}
+  .hero-inner .bio{animation-delay:0.35s;}
+  .hero-inner .stats-row{animation-delay:0.45s;}
+  .hero-inner .cta-row{animation-delay:0.55s;}
+  @keyframes rise{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
+  .hero-inner{animation:none; opacity:1; transform:none;}
+
+  .eyebrow{
+    font-family:var(--mono); font-size:0.82rem; color:var(--muted);
+    display:flex; align-items:center; gap:8px; margin-bottom:20px;
+  }
+  .eyebrow .dot{margin-left:2px;}
+
+  .hero h1{
+    font-size:clamp(2.4rem, 7vw, 4.6rem);
+    line-height:1.02;
+    color:var(--text);
+    margin-bottom:14px;
+  }
+  .role{
+    font-family:var(--mono); font-size:clamp(1rem, 2.4vw, 1.3rem);
+    color:var(--signal); margin-bottom:24px; font-weight:500;
+  }
+  .bio{
+    font-size:1.08rem; color:var(--muted); max-width:640px; margin-bottom:40px;
+  }
+  .bio strong{color:var(--text); font-weight:600;}
+
+  .stats-row{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:10px;
+    overflow:hidden; margin-bottom:40px;
+  }
+  .stat{background:var(--surface); padding:18px 16px;}
+  .stat-num{font-family:var(--mono); font-size:1.5rem; color:var(--text); font-weight:700;}
+  .stat-label{font-family:var(--mono); font-size:0.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-top:4px;}
+
+  .cta-row{display:flex; flex-wrap:wrap; gap:14px;}
+  .btn{
+    font-family:var(--mono); font-size:0.88rem; text-decoration:none;
+    padding:12px 22px; border-radius:8px; border:1px solid var(--line);
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+  .btn-primary{background:var(--signal); color:var(--ink); border-color:var(--signal); font-weight:600;}
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-ghost{color:var(--text); background:transparent;}
+  .btn-ghost:hover{border-color:var(--signal); color:var(--signal); transform:translateY(-2px);}
+
+  /* ---------- Section shell ---------- */
+  section{padding:80px 0;}
+  .section-head{margin-bottom:44px;}
+  .section-head h2{
+    font-size:1.5rem; color:var(--text); margin-bottom:10px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .section-head h2::before{content:"//"; color:var(--signal); font-weight:700;}
+  .section-sub{color:var(--muted); max-width:560px; font-size:1rem;}
+
+  .reveal{opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease;}
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+
+  section#experience{border-top:1px solid var(--line);}
+  section#stack{border-top:1px solid var(--line); background:var(--surface);}
+  section#projects{border-top:1px solid var(--line);}
+  section#contact{border-top:1px solid var(--line); background:var(--surface);}
+
+  /* ---------- Changelog ---------- */
+  .changelog{position:relative; padding-left:0;}
+  .entry{
+    display:grid; grid-template-columns:110px 1fr; gap:24px;
+    padding:28px 0; border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .entry:last-child{border-bottom:none; padding-bottom:0;}
+  .entry-marker{
+    font-family:var(--mono); font-size:0.95rem; color:var(--muted); font-weight:600;
+    padding-top:2px;
+  }
+  .entry.active .entry-marker{color:var(--signal);}
+  .entry-head{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:6px;}
+  .entry-head h3{font-size:1.15rem; color:var(--text);}
+  .badge{
+    font-family:var(--mono); font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em;
+    padding:3px 9px; border-radius:20px; border:1px solid var(--line); color:var(--muted);
+  }
+  .badge-active{color:var(--signal); border-color:var(--signal); background:var(--signal-dim);}
+  .badge-live{color:var(--signal); border-color:var(--signal); background:var(--signal-dim);}
+  .badge-archived{color:var(--muted); border-color:var(--line);}
+  .entry-meta{
+    font-family:var(--mono); font-size:0.8rem; color:var(--muted); margin-bottom:14px;
+  }
+  .entry-body ul{display:flex; flex-direction:column; gap:8px;}
+  .entry-body li{
+    font-size:0.98rem; color:var(--muted); padding-left:18px; position:relative;
+  }
+  .entry-body li::before{
+    content:"›"; position:absolute; left:0; color:var(--signal); font-family:var(--mono);
+  }
+  .entry-base .entry-body p{color:var(--muted); font-size:0.98rem;}
+
+  /* ---------- Stack / yaml block ---------- */
+  .yaml-block{
+    background:var(--ink); border:1px solid var(--line); border-radius:10px;
+    padding:28px 30px; font-family:var(--mono); overflow-x:auto;
+  }
+  .yaml-file{font-size:0.78rem; color:var(--muted); margin-bottom:18px; letter-spacing:0.04em;}
+  .yaml-row{display:flex; flex-wrap:wrap; align-items:baseline; gap:10px 8px; padding:10px 0; border-bottom:1px dashed var(--line);}
+  .yaml-row:last-child{border-bottom:none;}
+  .yaml-key{color:var(--gold); font-size:0.85rem; min-width:140px; flex-shrink:0;}
+  .yaml-values{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    font-family:var(--sans); font-size:0.82rem; color:var(--text);
+    background:var(--surface-2); border:1px solid var(--line);
+    padding:4px 11px; border-radius:6px;
+  }
+
+  /* ---------- Projects ---------- */
+  .project-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .project-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:12px;
+    padding:26px; transition:border-color 0.2s ease, transform 0.2s ease;
+  }
+  .project-card:hover{border-color:var(--signal); transform:translateY(-3px);}
+  .project-head{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:12px;}
+  .project-head h3{font-size:1.05rem; color:var(--text); line-height:1.3;}
+  .project-desc{color:var(--muted); font-size:0.95rem; margin-bottom:16px;}
+  .project-tags{display:flex; flex-wrap:wrap; gap:6px;}
+  .project-tags .tag{font-size:0.72rem; padding:3px 9px;}
+
+  /* ---------- Contact ---------- */
+  .terminal{
+    background:var(--ink); border:1px solid var(--line); border-radius:10px;
+    padding:28px 30px; font-family:var(--mono); font-size:0.9rem; margin-bottom:32px;
+  }
+  .terminal-line{color:var(--signal); margin-bottom:4px;}
+  .terminal-line::before{content:"$ "; color:var(--muted);}
+  .terminal-out{color:var(--muted); margin-bottom:18px; word-break:break-word;}
+  .terminal-out:last-child{margin-bottom:0;}
+  .terminal-out .val{color:var(--text);}
+
+  footer{
+    border-top:1px solid var(--line); padding:32px 0;
+    font-family:var(--mono); font-size:0.78rem; color:var(--muted);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:760px){
+    .nav-links{display:none;}
+    .nav-status{display:none;}
+    .nav-toggle{display:block;}
+    .mobile-menu.open{
+      display:flex; flex-direction:column; gap:2px;
+      border-top:1px solid var(--line); background:var(--ink);
+    }
+    .mobile-menu a{
+      padding:16px 24px; font-family:var(--mono); font-size:0.9rem; color:var(--muted);
+      text-decoration:none; border-bottom:1px solid var(--line);
+    }
+    .stats-row{grid-template-columns:1fr 1fr;}
+    .entry{grid-template-columns:1fr; gap:8px;}
+    .project-grid{grid-template-columns:1fr;}
+    .yaml-key{min-width:100%;}
+    footer{flex-direction:column;}
+  }
+</style>
+<noscript><style>
+  .hero-inner > *{opacity:1 !important; transform:none !important; animation:none !important;}
+  .reveal{opacity:1 !important; transform:none !important;}
+  .mobile-menu{display:flex !important;}
+</style></noscript>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#top" class="brand"><span class="brand-mark">DP</span> dilun.panduka</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#experience">/experience</a>
+      <a href="#stack">/stack</a>
+      <a href="#projects">/projects</a>
+      <a href="#education">/education</a>
+      <a href="#contact">/contact</a>
+    </nav>
+    <div class="nav-status"><span class="dot" aria-hidden="true"></span> status: operational</div>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Toggle menu">≡</button>
+  </div>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+    <a href="#experience">/experience</a>
+    <a href="#stack">/stack</a>
+    <a href="#projects">/projects</a>
+    <a href="#education">/education</a>
+    <a href="#contact">/contact</a>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="container hero-inner">
+      <p class="eyebrow">// portfolio <span class="dot" aria-hidden="true"></span> status: operational</p>
+      <h1>DILUN PANDUKA</h1>
+      <p class="role">Associate Tech Lead — Backend &amp; DevOps Engineer</p>
+      <p class="bio">I build and run backend systems for one of Sri Lanka's fintech platforms — <strong>microservices that move payments</strong> through Kubernetes and VMware Tanzu, and stay up while doing it. Over five years I've gone from writing my first REST endpoints to <strong>leading a 30-plus engineer team</strong>, and I still care most about the pipeline that gets code from a laptop to production without anyone losing sleep.</p>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num">5+</div><div class="stat-label">Years in fintech backend</div></div>
+        <div class="stat"><div class="stat-num">30+</div><div class="stat-label">Engineers led</div></div>
+        <div class="stat"><div class="stat-num">5+</div><div class="stat-label">Concurrent projects</div></div>
+        <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Production uptime</div></div>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="resume.pdf" download>↓ Download résumé</a>
+        <a class="btn btn-ghost" href="mailto:dilunp4@gmail.com">Email me</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/dilun-panduka-1a907415a" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>career changelog</h2>
+        <p class="section-sub">Five years of shipping and running fintech infrastructure, one release at a time — newest first.</p>
+      </div>
+
+      <div class="changelog">
+        <article class="entry active reveal">
+          <div class="entry-marker">v4.0.0</div>
+          <div class="entry-body">
+            <div class="entry-head">
+              <h3>Associate Tech Lead</h3>
+              <span class="badge badge-active">Active</span>
+            </div>
+            <p class="entry-meta">Paymedia (Pvt) Ltd. · Colombo, Sri Lanka · Apr 2025 – Present</p>
+            <ul>
+              <li>Lead and manage a 30+ member cross-functional engineering team, coordinating delivery across 5+ concurrent fintech projects.</li>
+              <li>Introduced standardized DevOps pipelines and deployment checklists, reducing production incidents through better pre-release validation.</li>
+              <li>Run weekly code reviews and biweekly knowledge-transfer sessions, raising code quality and cutting onboarding time for new hires.</li>
+              <li>Design and deploy on-premises microservices on VMware Tanzu, working with infrastructure specialists for zero-downtime rollouts.</li>
+              <li>Own performance reviews, leave planning, and workload distribution for the team, improving resource utilization.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="entry reveal">
+          <div class="entry-marker">v3.0.0</div>
+          <div class="entry-body">
+            <div class="entry-head">
+              <h3>Senior Software Engineer</h3>
+              <span class="badge badge-archived">Deployed</span>
+            </div>
+            <p class="entry-meta">Paymedia (Pvt) Ltd. · Colombo, Sri Lanka · Nov 2023 – Mar 2025</p>
+            <ul>
+              <li>Designed and deployed containerized Spring Boot applications on Azure Kubernetes Service (AKS), improving scalability and resilience for payment workloads.</li>
+              <li>Automated CI/CD pipelines with Azure DevOps, cutting manual deployment effort and increasing release frequency.</li>
+              <li>Partnered with business stakeholders to translate payment-domain requirements into technical solutions aligned with SLAs.</li>
+              <li>Led backend API development for core fintech features, maintaining high availability in a 24/7 production environment.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="entry reveal">
+          <div class="entry-marker">v2.0.0</div>
+          <div class="entry-body">
+            <div class="entry-head">
+              <h3>Software Engineer</h3>
+              <span class="badge badge-archived">Deployed</span>
+            </div>
+            <p class="entry-meta">Paymedia (Pvt) Ltd. · Colombo, Sri Lanka · Aug 2021 – Nov 2023</p>
+            <ul>
+              <li>Built and maintained Spring Boot backend APIs across multi-tier architectures (web, app, DB) in both cloud and on-premises environments.</li>
+              <li>Implemented Spring Data JPA and Hibernate for ORM, optimizing data access for large-scale financial transaction volumes.</li>
+              <li>Integrated Spring Security with role-based authentication and authorization, strengthening application security.</li>
+              <li>Worked with Oracle and MySQL — designed schemas, wrote complex queries, and optimized indexes for production performance.</li>
+              <li>Strengthened monitoring and alerting, improving post-deployment stability and reducing mean time to resolution.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="entry reveal">
+          <div class="entry-marker">v1.0.0</div>
+          <div class="entry-body">
+            <div class="entry-head">
+              <h3>Intern Software Engineer</h3>
+              <span class="badge badge-archived">Archived</span>
+            </div>
+            <p class="entry-meta">Virtusa Inc. · Colombo, Sri Lanka · Apr 2019 – Aug 2020</p>
+            <ul>
+              <li>Developed an Angular web application, building reusable components and integrating RESTful APIs for a client-facing product.</li>
+              <li>Built a React-based admin dashboard with a Spring Boot backend, implementing data visualization and role-based access.</li>
+              <li>Participated in Agile ceremonies, wrote unit tests, and contributed fixes across frontend and backend codebases.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="entry entry-base reveal" id="education">
+          <div class="entry-marker">v0.1.0</div>
+          <div class="entry-body">
+            <div class="entry-head">
+              <h3>Bachelor of Information Technology</h3>
+              <span class="badge badge-archived">Foundation</span>
+            </div>
+            <p class="entry-meta">University of Colombo School of Computing (UCSC) · 2016 – 2019</p>
+            <p>Where it started — the base image everything since has been built on.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>stack.yaml</h2>
+        <p class="section-sub">The tools and practices in daily rotation, laid out like a config file — because that's honestly how I think about them.</p>
+      </div>
+      <div class="yaml-block reveal">
+        <div class="yaml-file"># stack.yaml</div>
+        <div class="yaml-row">
+          <span class="yaml-key">languages:</span>
+          <span class="yaml-values">
+            <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Spring Data JPA</span><span class="tag">Hibernate</span><span class="tag">Spring Security</span><span class="tag">Thymeleaf</span>
+          </span>
+        </div>
+        <div class="yaml-row">
+          <span class="yaml-key">cloud_devops:</span>
+          <span class="yaml-values">
+            <span class="tag">Azure AKS</span><span class="tag">Azure DevOps</span><span class="tag">VMware Tanzu</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">CI/CD Pipelines</span><span class="tag">Shell Scripting</span>
+          </span>
+        </div>
+        <div class="yaml-row">
+          <span class="yaml-key">databases:</span>
+          <span class="yaml-values">
+            <span class="tag">Oracle</span><span class="tag">MySQL</span><span class="tag">PostgreSQL</span>
+          </span>
+        </div>
+        <div class="yaml-row">
+          <span class="yaml-key">architecture:</span>
+          <span class="yaml-values">
+            <span class="tag">Microservices</span><span class="tag">RESTful APIs</span><span class="tag">Multi-tier</span><span class="tag">Hybrid Cloud</span>
+          </span>
+        </div>
+        <div class="yaml-row">
+          <span class="yaml-key">practices:</span>
+          <span class="yaml-values">
+            <span class="tag">Code Review</span><span class="tag">Agile/Scrum</span><span class="tag">Perf. Monitoring</span><span class="tag">Log Analysis</span><span class="tag">Unit Testing</span>
+          </span>
+        </div>
+        <div class="yaml-row">
+          <span class="yaml-key">leadership:</span>
+          <span class="yaml-values">
+            <span class="tag">Team Mgmt (30+)</span><span class="tag">Mentoring</span><span class="tag">KT Sessions</span><span class="tag">Performance Reviews</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>deployed services</h2>
+        <p class="section-sub">A few things I've shipped end to end, from architecture to rollout.</p>
+      </div>
+      <div class="project-grid">
+        <div class="project-card reveal">
+          <div class="project-head">
+            <h3>Payment Gateway Microservices Platform</h3>
+            <span class="badge badge-live">Live</span>
+          </div>
+          <p class="project-desc">Architected and delivered a suite of RESTful microservices powering core payment flows. Containerized with Docker, orchestrated on AKS, with a fully automated Azure DevOps pipeline for frequent, low-risk deploys.</p>
+          <div class="project-tags">
+            <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Docker</span><span class="tag">AKS</span><span class="tag">Azure DevOps</span><span class="tag">Oracle</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-head">
+            <h3>On-Premises Microservices Migration</h3>
+            <span class="badge badge-live">Deployed</span>
+          </div>
+          <p class="project-desc">Led the design and rollout of an on-premises microservices architecture on VMware Tanzu, defining deployment standards and executing zero-downtime go-lives for mission-critical fintech services.</p>
+          <div class="project-tags">
+            <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">VMware Tanzu</span><span class="tag">Shell Scripting</span><span class="tag">Linux</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-head">
+            <h3>Admin Dashboard — Internal Tool</h3>
+            <span class="badge badge-live">Live</span>
+          </div>
+          <p class="project-desc">End-to-end internal admin dashboard with a Spring Boot backend and Thymeleaf/Bootstrap frontend. Role-based access, real-time reporting, and data visualization for teams monitoring payment flows.</p>
+          <div class="project-tags">
+            <span class="tag">Spring Boot</span><span class="tag">Thymeleaf</span><span class="tag">JavaScript</span><span class="tag">jQuery</span><span class="tag">Bootstrap</span><span class="tag">MySQL</span>
+          </div>
+        </div>
+
+        <div class="project-card reveal">
+          <div class="project-head">
+            <h3>Angular Web App &amp; React Dashboard</h3>
+            <span class="badge badge-archived">Archived</span>
+          </div>
+          <p class="project-desc">Client-facing Angular application with reusable components, plus a separate React admin dashboard on a Spring Boot backend with data visualization and role-based access. First real full-stack exposure, at Virtusa.</p>
+          <div class="project-tags">
+            <span class="tag">Angular</span><span class="tag">React</span><span class="tag">Spring Boot</span><span class="tag">REST APIs</span><span class="tag">Unit Testing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>contact</h2>
+        <p class="section-sub">Open to conversations about backend, DevOps, and engineering leadership roles.</p>
+      </div>
+      <div class="terminal reveal">
+        <div class="terminal-line">whoami</div>
+        <div class="terminal-out">Dilun Panduka — Backend &amp; DevOps Engineer, Battaramulla, Sri Lanka</div>
+        <div class="terminal-line">cat contact.json</div>
+        <div class="terminal-out">{ "email": "<span class="val">dilunp4@gmail.com</span>", "phone": "<span class="val">+94 77 292 8483</span>", "linkedin": "<span class="val">/in/dilun-panduka-1a907415a</span>" }</div>
+      </div>
+      <div class="cta-row reveal">
+        <a class="btn btn-primary" href="mailto:dilunp4@gmail.com">Email me</a>
+        <a class="btn btn-ghost" href="tel:+94772928483">Call me</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/dilun-panduka-1a907415a" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn btn-ghost" href="resume.pdf" download>↓ Résumé</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; width:100%;">
+    <span>© <span id="year"></span> Dilun Panduka</span>
+    <span>Battaramulla, Sri Lanka</span>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  var toggle = document.getElementById('navToggle');
+  var menu = document.getElementById('mobileMenu');
+  toggle.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      menu.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Scroll reveal
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reveals = document.querySelectorAll('.reveal');
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    reveals.forEach(function(el){ el.classList.add('in-view'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function(el){ io.observe(el); });
+  }
+
+  // Safety net: guarantee visibility even if something above fails silently
+  window.addEventListener('load', function(){
+    setTimeout(function(){
+      reveals.forEach(function(el){ el.classList.add('in-view'); });
+    }, 600);
+  });
+</script>
+</body>
+</html>
